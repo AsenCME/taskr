@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import schedule from "./schedule";
-import holidays from "./holidays";
+import schedule from "@/data/schedule";
+import holidays from "@/data/holidays";
 
 Vue.use(Vuex);
 

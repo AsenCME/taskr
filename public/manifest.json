@@ -1,6 +1,6 @@
 {
-	"name": "taskr",
-	"short_name": "taskr",
+	"name": "TaskR Inc.",
+	"short_name": "TaskR",
 	"icons": [
 		{
 			"src": "/img/icons/android-chrome-192x192.png",
@@ -13,8 +13,8 @@
 			"type": "image/png"
 		}
 	],
-	"start_url": "/index.html",
+	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#0c043d",
-	"theme_color": "#000000"
+	"background_color": "#eeeeee",
+	"theme_color": "#950095"
 }

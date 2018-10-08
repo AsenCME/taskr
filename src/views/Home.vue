@@ -146,7 +146,7 @@ export default class Home extends Vue {
 			case 0:
 				return { value: 7 * 60 + 30, displayValue: "7:30" };
 			case 1:
-				return { value: 8 * 60 + 20, displayValue: "8:10" };
+				return { value: 8 * 60 + 20, displayValue: "8:20" };
 			case 2:
 				return { value: 9 * 60 + 10, displayValue: "9:10" };
 			case 3:
@@ -251,15 +251,16 @@ export default class Home extends Vue {
 .time-container {
 	text-align: center;
 	padding: 20px;
+	padding-top: 40px;
 }
 .day {
 	font-weight: 700;
 	text-transform: uppercase;
-	font-size: 26px;
+	font-size: 36px;
 }
 .time {
 	font-weight: 300;
-	font-size: 30px;
+	font-size: 40px;
 	margin-top: 5px;
 }
 
@@ -292,7 +293,19 @@ export default class Home extends Vue {
 		padding: 10px;
 	}
 	.text {
-		padding: 5px;
+		padding: 2px;
+	}
+	.subject .left,
+	.subject .right {
+		font-size: 17px;
+		width: 55px;
+	}
+	.day {
+		font-size: 30px;
+	}
+	.time {
+		font-size: 40px;
+		margin-top: -5px;
 	}
 }
 </style>

@@ -16,8 +16,13 @@ export default new Router({
 		{
 			path: "/about",
 			name: "about",
+			component: () => import(/* webpackChunkName: "about" */ "./views/About.vue"),
+		},
+		{
+			path: "/schedule",
+			name: "schedule",
 			component: () =>
-				import(/* webpackChunkName: "about" */ "./views/About.vue"),
+				import(/* webpackChunkName: "about" */ "./views/Schedule.vue"),
 		},
 	],
 });
