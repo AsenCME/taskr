@@ -14,15 +14,19 @@ export default new Router({
 			component: Home,
 		},
 		{
-			path: "/about",
-			name: "about",
-			component: () => import(/* webpackChunkName: "about" */ "./views/About.vue"),
+			path: "/profile",
+			name: "profile",
+			component: () => import(/* webpackChunkName: "about" */ "./views/Profile.vue"),
 		},
 		{
 			path: "/schedule",
 			name: "schedule",
-			component: () =>
-				import(/* webpackChunkName: "about" */ "./views/Schedule.vue"),
+			component: () => import(/* webpackChunkName: "about" */ "./views/Schedule.vue"),
+		},
+		{
+			path: "/tasks",
+			name: "tasks",
+			component: () => import(/* webpackChunkName: "about" */ "./views/Tasks.vue"),
 		},
 	],
 });

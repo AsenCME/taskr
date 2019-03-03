@@ -1,0 +1,72 @@
+.header {
+	z-index: 1;
+	top: 0px;
+	width: 100%;
+	background: white;
+	box-shadow: 0px 3px 20px -10px black;
+	position: fixed;
+	text-align: center;
+	font-size: 25px;
+	padding: 20px 0px;
+	font-weight: 700;
+}
+.title {
+	background: white;
+}
+.backBtn {
+	position: absolute;
+	font-weight: 500;
+	top: 22.5px;
+	left: 22.5px;
+}
+.backBtn img {
+	height: 25px;
+}
+
+.schedule {
+	padding: 0px 20px;
+	padding-top: 90px;
+}
+
+.day {
+	position: relative;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.dayName {
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+	background: #000;
+	color: #fff;
+	padding: 10px 0px;
+}
+.classes {
+	padding: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+	max-height: 0px;
+	transition: 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.classes.selected {
+	padding: 20px;
+	max-height: 400px;
+}
+.subject {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+	font-size: 18px;
+	border-bottom: 1px solid black;
+}
+.last {
+	border: none !important;
+	padding: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}

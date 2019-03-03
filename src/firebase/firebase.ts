@@ -17,24 +17,46 @@ let db = app.firestore();
 db.settings(firestoreSettings);
 let provider = new firebase.auth.GoogleAuthProvider();
 
-firebase.auth().onAuthStateChanged(user => {
-	if (user) {
-		store.dispatch("login", user);
-	} else {
-		store.dispatch("logout");
-	}
-});
+// firebase.auth().onAuthStateChanged(user => {
+// 	if (user) {
+// 		let userToDB = { uid: user.uid, name: user.displayName, email: user.email };
+// 		store.dispatch("login", userToDB);
+// 	} else {
+// 		store.dispatch("logout");
+// 	}
+// });
 
-const getUserStatus = function() {
+const getUserStatus = async function() {
 	return new Promise((resolve, reject) => {
 		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
-				store.dispatch("login", user);
-				resolve(user.uid);
+				let userToDB = { uid: user.uid, name: user.displayName, email: user.email };
+				store.dispatch("login", userToDB);
+				resolve(user);
 			} else {
-				reject(Error("It broke"));
+				store.dispatch("logout");
+				console.log("User is null");
+				reject();
 			}
 		});
+	});
+};
+
+const login = function() {
+	return new Promise((resolve, reject) => {
+		auth
+			.signInWithPopup(provider)
+			.then(function(res) {
+				let user = res.user;
+				console.log(user);
+				resolve(user);
+			})
+			.catch(err => {
+				let errorCode = err.code;
+				var errorMessage = err.message;
+				console.log(errorCode, errorMessage);
+				reject(err);
+			});
 	});
 };
 
@@ -47,4 +69,4 @@ const logout = function() {
 	});
 };
 
-export { provider, auth, db, getUserStatus, logout };
+export { provider, auth, db, getUserStatus, logout, login, firebase };

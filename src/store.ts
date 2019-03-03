@@ -1,46 +1,95 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import schedule from "@/data/schedule";
-import holidays from "@/data/holidays";
+import schedule12E from "@/data/schedule12E";
+import schedule12B from "@/data/schedule12B";
+
+import Todo from "./models/Todo";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	getters: {
-		isAuthenticated: state => state.authenticated,
-		currentUser: state => state.user,
-		schedule: state => state.schedule,
-		holidays: state => state.holidays,
+		username: state => state.username,
+		className: state => state.className,
+		// Get schedule by className
+		scheduleData: state => {
+			switch (state.className) {
+				case "12E":
+					return state.schedule12E;
+				case "12B":
+					return state.schedule12B;
+				default:
+					return state.schedule12E;
+			}
+		},
+		// Filter for uncompleted and sort
+		uncompletedTodos: state =>
+			state.todos
+				.filter((x: Todo) => x.completed === false)
+				.sort((a: Todo, b: Todo) => a.timestamp - b.timestamp),
+		// Filter for completed and sort
+		completedTodos: state =>
+			state.todos
+				.filter((x: Todo) => x.completed == true)
+				.sort((a: Todo, b: Todo) => b.timestamp - a.timestamp),
+		// Get all todos
+		todos: state => state.todos,
 	},
 
 	state: {
-		authenticated: false,
-		user: {},
-		schedule: schedule,
-		holidays: holidays,
+		username: localStorage.getItem("username") || "Buddy",
+		className: localStorage.getItem("className") || "12E",
+		schedule12E: schedule12E,
+		schedule12B: schedule12B,
+		// Get todos from local storage
+		todos:
+			JSON.parse(localStorage.getItem("todos"), function(key, value) {
+				if (!key) return value;
+				return value === null ? Infinity : value;
+			}) || new Array<Todo>(),
 	},
 
 	mutations: {
-		login(state, user) {
-			state.user = user;
-			state.authenticated = true;
+		changeSchedule(state, classLetter) {
+			state.className = classLetter;
 		},
-		logout(state) {
-			state.user = {};
-			state.authenticated = false;
+		changeUsername(state, username) {
+			state.username = username;
 		},
-		updateUser(state, user) {
-			state.user = {};
-			state.user = user;
+		addTodo(state, todo) {
+			state.todos.push(todo);
+			localStorage.setItem("todos", JSON.stringify(state.todos));
+		},
+		completeTodo(state, id) {
+			state.todos.find((x: Todo) => x.id === id).completed = true;
+			state.todos.find((x: Todo) => x.id === id).timestamp = new Date().getTime();
+			localStorage.setItem("todos", JSON.stringify(state.todos));
+		},
+		removeTodo(state, id) {
+			if (state.todos.length === 1) {
+				state.todos = [];
+			}
+			state.todos.splice(id, 1);
+			localStorage.setItem("todos", JSON.stringify(state.todos));
 		},
 	},
 
 	actions: {
-		login(context, user) {
-			context.commit("login", user);
+		changeSchedule(context, className) {
+			context.commit("changeSchedule", className);
+			localStorage.setItem("className", className);
 		},
-		logout(context) {
-			context.commit("logout");
+		changeUsername(context, username) {
+			context.commit("changeUsername", username);
+		},
+		addTodo(context, todo) {
+			context.commit("addTodo", todo);
+		},
+		completeTodo(context, id) {
+			context.commit("completeTodo", id);
+		},
+		removeTodo(context, id) {
+			context.commit("removeTodo", id);
 		},
 	},
 });
